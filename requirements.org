@@ -36,19 +36,19 @@
    - [x] The webserver can return index.html from directories (paths
      that end in /)
    - [x] The webserver can server 404 errors for paths not found
-   - [ ] The webserver works with Firefox and Chromium
+   - [x] The webserver works with Firefox and Chromium
      http://127.0.0.1:8080/
    - [x] The webserver can serve CSS properly so that the front page
      has an orange h1 header.
    - [ ] I can check out the source code via an HTTP git URL
-   - [ ] Provide a screenshot (commit and push it!) of Firefox at
+   - [x] Provide a screenshot (commit and push it!) of Firefox at
      http://127.0.0.1:8080/ and http://127.0.0.1:8080/deep/
-   - [x] Return a status code of "405 Method Not Allowed" for any method you cannot handle (POST/PUT/DELETE) 
+   - [x] Return a status code of "405 Method Not Allowed" for any method you cannot handle (POST/PUT/DELETE)
 
 ** Restrictions
-   - [ ] Use Python 2.7
+   - [x] Use Python 2.7
    - [ ] Must run in the undergrad lab (Ubuntu 12.04)
-   - [ ] License your webserver properly (use an OSI approved license)
+   - [x] License your webserver properly (use an OSI approved license)
      - Put your name on it!
    - [x] You cannot use a Web Server library
 
@@ -72,8 +72,8 @@
      cd yourccid
      bash runner.sh
    - Marks will be deducted if I cannot successfully do this.
-     
-   
+
+
 ** Marking
    - 4 Marks for passing all of freetests.py
    - 2 Marks for passing all of not-free-tests.py

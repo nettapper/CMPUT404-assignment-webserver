@@ -32,3 +32,8 @@ Resources Used
 * [Python 2 Docs For Inspect](https://docs.python.org/2/library/inspect.html) accessed Jan 22, 2017
 * [Python 2 Docs For Socket](https://docs.python.org/2.7/library/socket.html?highlight=sendall#socket.socket.sendall) accessed Jan 22, 2017
 * [Docs For rfc2616](https://docs.python.org/2.7/library/socket.html?highlight=sendall#socket.socket.sendall) accessed Jan 22, 2017
+
+Screen Shots
+============
+![Firefox Screenshot Webroot](firefox_screenshot_webroot.png)
+![Firefox Screenshot Deep](firefox_screenshot_deep.png)
