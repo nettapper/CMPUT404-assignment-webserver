@@ -53,8 +53,8 @@ class MyWebServer(SocketServer.BaseRequestHandler):
         return typeOfRequest
 
     def getRequestedResource(self, listOfRequestLines):
-        # TODO: hangle the case where trying to access something above the www dir
-        return ''  # can return this to get 404
+        # # TODO: handle the case where trying to access something above the www dir
+        # return ''  # can return this to get 404
         requestedResource = listOfRequestLines[0].split(' ')[1]
         requestedResource = os.path.relpath("www/" + requestedResource)
         if(os.path.isdir(requestedResource)):
@@ -78,7 +78,7 @@ class MyWebServer(SocketServer.BaseRequestHandler):
 
     def sendFile(self, filePath):
         self.request.sendall("HTTP/1.1 200 OK\r\n")
-        self.request.sendall("Content-type: text/html; charset=utf-8\r\n")
+        self.request.sendall("Content-type: %s; charset=%s\r\n" % mimetypes.guess_type(filePath))
         self.request.sendall("Content-Length: %s\r\n" % self.getFileSize(filePath))
         self.request.sendall("\r\n")
         fileObj = open(filePath, "rU")  # TODO: i need a try, except on this!
