@@ -1,5 +1,8 @@
 #  coding: utf-8
-import SocketServer
+import SocketServer  # used for handling the tcp connection w/ the client
+import mimetypes  # used to decode/encode filename/url <=> MIME type
+import os  # used to access files on disk
+import inspect  # used to determine the available methods on objects
 
 # Copyright 2013 Abram Hindle, Eddie Antonio Santos
 #
@@ -28,7 +31,7 @@ import SocketServer
 
 
 # Example Print out of this file (server.py)
-# Got a request of: GET / HTTP/1.1
+# GET / HTTP/1.1
 # Host: 127.0.0.1:8080
 # User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:50.0) Gecko/20100101 Firefox/50.0
 # Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
@@ -41,8 +44,35 @@ class MyWebServer(SocketServer.BaseRequestHandler):
 
     def handle(self):
         self.data = self.request.recv(1024).strip()
+        # print(inspect.getdoc(SocketServer.BaseRequestHandler))
+        # print(inspect.getsource(SocketServer.BaseRequestHandler))
+        # print("-----")
+        # print(inspect.getdoc(self.request))
+        # print(inspect.getsource(self.request))
+
+# HTTP/1.0 200 OK
+# Server: SimpleHTTP/0.6 Python/2.7.5
+# Date: Sun, 22 Jan 2017 19:33:29 GMT
+# Content-type: text/html; charset=utf-8
+# Content-Length: 574
+
         print ("Got a request of: %s\n" % self.data)
-        self.request.sendall("OK")
+        listOfRequestLines = self.data.split("\r\n")
+        if((self.getRequestType(listOfRequestLines)).upper() != "GET"):
+            self.request.sendall("HTTP/1.1 405 METHOD NOT ALLOWED\r\n")
+        else:
+            self.request.send("HTTP/1.1 200 OK\r\n")
+            self.request.send("Content-type: text/html; charset=utf-8\r\n")
+            self.request.send("Content-Length: 574\r\n")
+            self.request.send("\r\n")
+            fileObj = open("www/index.html", "rU")
+            self.request.send(fileObj.read())
+            # print(inspect.getdoc(fileObj))
+
+    def getRequestType(self, listOfRequestLines):
+        typeOfRequest = listOfRequestLines[0].split(' ')[0]
+        return typeOfRequest
+
 
 if __name__ == "__main__":
     HOST, PORT = "localhost", 8080
