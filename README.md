@@ -31,4 +31,4 @@ Resources Used
 * [Python 2 Docs For OS.path](https://docs.python.org/2/library/os.path.html#module-os.path) accessed Jan 22, 2017
 * [Python 2 Docs For Inspect](https://docs.python.org/2/library/inspect.html) accessed Jan 22, 2017
 * [Python 2 Docs For Socket](https://docs.python.org/2.7/library/socket.html?highlight=sendall#socket.socket.sendall) accessed Jan 22, 2017
-* [Python 2 Docs For rfc2616](https://docs.python.org/2.7/library/socket.html?highlight=sendall#socket.socket.sendall) accessed Jan 22, 2017
+* [Docs For rfc2616](https://docs.python.org/2.7/library/socket.html?highlight=sendall#socket.socket.sendall) accessed Jan 22, 2017
