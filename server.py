@@ -53,14 +53,17 @@ class MyWebServer(SocketServer.BaseRequestHandler):
         return typeOfRequest
 
     def getRequestedResource(self, listOfRequestLines):
-        # # TODO: handle the case where trying to access something above the www dir
-        # return ''  # can return this to get 404
+        # add 'index.html' if needed to the dir
         requestedResource = listOfRequestLines[0].split(' ')[1]
         requestedResource = os.path.relpath("www/" + requestedResource)
         if(os.path.isdir(requestedResource)):
-            return os.path.join(requestedResource, "index.html")
-        else:
-            return requestedResource
+            requestedResource = os.path.join(requestedResource, "index.html")
+        # ensure that the requestedResource is in the www/ directory
+        dirName = os.path.dirname(os.path.normpath(requestedResource))
+        if(dirName[0:3] != "www"):  # we know they are tryingn to escape www/
+            return ''  # return an emptry string, therefore 404 NOT FOUND
+        # all check pass, therefore can return the requestedResource
+        return requestedResource
 
     def getFileSize(self, filePath):
         if(os.access(filePath, os.R_OK)):
