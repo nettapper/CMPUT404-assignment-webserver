@@ -41,7 +41,7 @@ class MyWebServer(SocketServer.BaseRequestHandler):
         if((self.getRequestType(listOfRequestLines)).upper() != "GET"):
             self.sendMethodNotAllowed()
         else:
-            filePath = "www/index.html"  # TODO: don't hardcode this
+            filePath = self.getRequestedResource(listOfRequestLines)
             if(self.getFileSize(filePath) > 0):
                 self.sendFile(filePath)
             else:
@@ -51,6 +51,16 @@ class MyWebServer(SocketServer.BaseRequestHandler):
     def getRequestType(self, listOfRequestLines):
         typeOfRequest = listOfRequestLines[0].split(' ')[0]
         return typeOfRequest
+
+    def getRequestedResource(self, listOfRequestLines):
+        # TODO: hangle the case where trying to access something above the www dir
+        return ''  # can return this to get 404
+        requestedResource = listOfRequestLines[0].split(' ')[1]
+        requestedResource = os.path.relpath("www/" + requestedResource)
+        if(os.path.isdir(requestedResource)):
+            return os.path.join(requestedResource, "index.html")
+        else:
+            return requestedResource
 
     def getFileSize(self, filePath):
         if(os.access(filePath, os.R_OK)):
