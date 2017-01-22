@@ -2,9 +2,8 @@
 import SocketServer  # used for handling the tcp connection w/ the client
 import mimetypes  # used to decode/encode filename/url <=> MIME type
 import os  # used to access files on disk
-import inspect  # used to determine the available methods on objects
 
-# Copyright 2013 Abram Hindle, Eddie Antonio Santos
+# Copyright 2013 Abram Hindle, Eddie Antonio Santos, Conner Dunn
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -33,9 +32,6 @@ class MyWebServer(SocketServer.BaseRequestHandler):
 
     def handle(self):
         self.data = self.request.recv(1024).strip()
-        # print(inspect.getdoc(self.request))
-        # print(inspect.getsource(self.request))
-
         print ("Got a request of: %s\n" % self.data)
         listOfRequestLines = self.data.split("\r\n")
         if((self.getRequestType(listOfRequestLines)).upper() != "GET"):
@@ -62,7 +58,7 @@ class MyWebServer(SocketServer.BaseRequestHandler):
         dirName = os.path.dirname(os.path.normpath(requestedResource))
         if(dirName[0:3] != "www"):  # we know they are tryingn to escape www/
             return ''  # return an emptry string, therefore 404 NOT FOUND
-        # all check pass, therefore can return the requestedResource
+        # all checks pass, therefore can return the requestedResource
         return requestedResource
 
     def getFileSize(self, filePath):
@@ -86,8 +82,6 @@ class MyWebServer(SocketServer.BaseRequestHandler):
         self.request.sendall("\r\n")
         fileObj = open(filePath, "rU")  # TODO: i need a try, except on this!
         self.request.sendall(fileObj.read())
-        # print(inspect.getdoc(fileObj))
-        # print(self.getFileSize("www/noSuchFile.txt"))
         # self.request.sendall("\r\n")  # TODO: how to close connection when sending file
 
 
